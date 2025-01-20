@@ -1,24 +1,29 @@
-﻿namespace DigitalMobileBank
+﻿using DigitalMobileBank.ViewModel;
+
+namespace DigitalMobileBank
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
+        private CardsViewModel _viewModel;
 
         public MainPage()
         {
             InitializeComponent();
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        private void SfCarousel_SelectionChanged(object sender, Syncfusion.Maui.Core.Carousel.SelectionChangedEventArgs e)
         {
-            count++;
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
+        }
 
-            SemanticScreenReader.Announce(CounterBtn.Text);
+        private void SfButton_Clicked(object sender, EventArgs e)
+        {
+            bottomSheet.Show();
+        }
+
+        private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            _viewModel.FilterContacts(e.NewTextValue);
         }
     }
 
