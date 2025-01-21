@@ -29,30 +29,6 @@ namespace DigitalMobileBank
             bottomSheet.ZIndex = 1;
         }
 
-        private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            _viewModel.FilterContacts(e.NewTextValue);
-        }
-
-        private void SearchBar_Focused(object sender, FocusEventArgs e)
-        {
-//            if (e.IsFocused)
-//            {
-//#if ANDROID
-                
-//                Task.Delay(100);
-//                if((sender as SearchBar).IsSoftKeyboardShowing())
-//                {
-//                    bottomSheet.HalfExpandedRatio = .80;
-//                }
-//                else
-//                {
-                 
-//                }
-//#endif
-//            }
-        }
-
         private void bottomSheet_StateChanged(object sender, Syncfusion.Maui.Toolkit.BottomSheet.StateChangedEventArgs e)
         {
             if(sender is SfBottomSheet bottomSheet)
@@ -64,12 +40,18 @@ namespace DigitalMobileBank
                 else if(e.NewState == BottomSheetState.Hidden)
                 {
                     bottomSheet.ZIndex = -1;
-                    if(SearchBar.IsSoftKeyboardShowing())
+                    if (entry.IsSoftKeyboardShowing())
                     {
-                        SearchBar.HideKeyboardAsync();
+                        entry.HideKeyboardAsync();
                     }
+
                 }
             }
+        }
+
+        private void Entry_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            _viewModel.FilterContacts(e.NewTextValue);
         }
     }
 

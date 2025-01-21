@@ -4,6 +4,7 @@
              xmlns:tabView="clr-namespace:Syncfusion.Maui.TabView;assembly=Syncfusion.Maui.TabView"
              xmlns:bottomSheet="clr-namespace:Syncfusion.Maui.Toolkit.BottomSheet;assembly=Syncfusion.Maui.Toolkit"
              xmlns:syncfusionCards="clr-namespace:Syncfusion.Maui.Cards;assembly=Syncfusion.Maui.Cards"
+             xmlns:inputLayout="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
              xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
              xmlns:carousel="clr-namespace:Syncfusion.Maui.Carousel;assembly=Syncfusion.Maui.Carousel"
              xmlns:local="clr-namespace:DigitalMobileBank.ViewModel"
@@ -30,7 +31,8 @@
                         </FontImageSource>
                     </tabView:SfTabItem.ImageSource>
                     <tabView:SfTabItem.Content>
-                        <VerticalStackLayout Padding="10" 
+                        <ScrollView>
+                            <VerticalStackLayout Padding="10" 
                                              Spacing="28">
                             <!-- Header -->
                             <Grid RowDefinitions="Auto" ColumnDefinitions="Auto,*,Auto">
@@ -275,6 +277,7 @@
                             <BoxView HeightRequest="1" Color="#F3F2F3"/>
 
                         </VerticalStackLayout>
+                        </ScrollView>
                     </tabView:SfTabItem.Content>
                 </tabView:SfTabItem>
 
@@ -344,11 +347,16 @@
                                    ContentPadding="10">
             <bottomSheet:SfBottomSheet.BottomSheetContent>
                 <VerticalStackLayout Padding="10" Spacing="20">
-                    <!-- Search Bar -->
-                    <SearchBar Placeholder="Search contacts"
-                       TextChanged="SearchBar_TextChanged"
-                       Focused="SearchBar_Focused"
-                       x:Name="SearchBar" />
+
+                    <inputLayout:SfTextInputLayout  ContainerType="Outlined" Stroke="Transparent"  VerticalOptions="Center" ShowHint="False"  
+                               LeadingViewPosition="Inside" >
+                        <Entry TextChanged="Entry_TextChanged" HeightRequest="18" Placeholder="Search contacts" PlaceholderColor="Gray" x:Name="entry"/>
+                        <inputLayout:SfTextInputLayout.LeadingView>
+                            <Label Text="&#xe728;" FontFamily="MauiSampleFontIcon" VerticalOptions="Center" TextColor="Gray"
+                                FontSize="24" >
+                            </Label>
+                        </inputLayout:SfTextInputLayout.LeadingView>
+                    </inputLayout:SfTextInputLayout>
 
                     <!-- CollectionView -->
                     <CollectionView x:Name="ContactsCollectionView"
