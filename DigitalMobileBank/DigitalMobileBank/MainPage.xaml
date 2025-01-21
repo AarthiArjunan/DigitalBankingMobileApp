@@ -3,164 +3,290 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:tabView="clr-namespace:Syncfusion.Maui.TabView;assembly=Syncfusion.Maui.TabView"
              xmlns:bottomSheet="clr-namespace:Syncfusion.Maui.Toolkit.BottomSheet;assembly=Syncfusion.Maui.Toolkit"
-            xmlns:syncfusionCards="clr-namespace:Syncfusion.Maui.Cards;assembly=Syncfusion.Maui.Cards"
-            xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
-            xmlns:carousel="clr-namespace:Syncfusion.Maui.Carousel;assembly=Syncfusion.Maui.Carousel"
-            xmlns:local="clr-namespace:DigitalMobileBank.ViewModel"
+             xmlns:syncfusionCards="clr-namespace:Syncfusion.Maui.Cards;assembly=Syncfusion.Maui.Cards"
+             xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+             xmlns:carousel="clr-namespace:Syncfusion.Maui.Carousel;assembly=Syncfusion.Maui.Carousel"
+             xmlns:local="clr-namespace:DigitalMobileBank.ViewModel"
              x:Class="DigitalMobileBank.MainPage">
 
     <ContentPage.BindingContext>
-        <local:CardsViewModel/>
+        <local:CardsViewModel x:Name="_viewModel"/>
     </ContentPage.BindingContext>
 
-    <Grid>
+    <Grid Padding="8">
         <tabView:SfTabView x:Name="tabView"
-                TabBarPlacement="Bottom">
+                     IndicatorBackground="Transparent"
+                     TabHeaderPadding="0" 
+                     TabBarHeight="80"
+                    TabBarPlacement="Bottom">
             <tabView:SfTabView.Items>
-                <tabView:SfTabItem Header="Home">
+                <tabView:SfTabItem Header="Home" FontSize="16" FontAttributes="Bold">
+                    <tabView:SfTabItem.ImageSource>
+                        <FontImageSource Glyph="&#xe738;"
+                                         Size="26"
+                                         Color="Black"
+                                         FontFamily="MauiSampleFontIcon">
+                            
+                        </FontImageSource>
+                    </tabView:SfTabItem.ImageSource>
                     <tabView:SfTabItem.Content>
-                        <VerticalStackLayout Padding="10" Spacing="20">
+                        <VerticalStackLayout Padding="10" 
+                                             Spacing="28">
                             <!-- Header -->
-                            <Grid RowDefinitions="Auto" ColumnDefinitions="*,Auto,*">
-                                <Image Source="user_icon.png" WidthRequest="40" HeightRequest="40" Grid.Column="0" />
-                                <Label Text="Home" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"  />
-                                <Image Source="menu_icon.png" Grid.Column="2" WidthRequest="40" HeightRequest="40"  />
+                            <Grid RowDefinitions="Auto" ColumnDefinitions="Auto,*,Auto">
+                                <buttons:SfButton  WidthRequest="32"
+                                                   HeightRequest="32"
+                                                   Text="RL"
+                                                   FontSize="14"
+                                                   FontAttributes="Bold"
+                                                   TextColor="#2A2B2E"
+                                                   StrokeThickness="0"
+                                                   CornerRadius="20"
+                                                   Background="LightGray"
+                                                   Grid.Column="0" />
+                                <Label Text="Home"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       Grid.Column="1"
+                                       HorizontalOptions="Center" 
+                                       VerticalOptions="Center"/>
+                                <buttons:SfButton Grid.Column="2"
+                                                  FontFamily="MauiSampleFontIcon"
+                                                  Text="&#xe75e;"
+                                                  FontSize="20"
+                                                  TextColor="#2A2B2E"
+                                                  Stroke="#2A2B2E"
+                                                  StrokeThickness="1"
+                                                  CornerRadius="20"
+                                                  WidthRequest="32"
+                                                  Background="Transparent"
+                                                  HeightRequest="32" />
                             </Grid>
 
                             <!-- Balance Section -->
-                            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
-                                <Label Text="€ 6,815.53" FontSize="30" FontAttributes="Bold" HorizontalTextAlignment="Center" />
-                                <Label Text="Current balance" FontSize="16" TextColor="Gray" HorizontalTextAlignment="Center" />
-
+                            <VerticalStackLayout HorizontalOptions="Center"
+                                                 Margin="14"
+                                                 Spacing="5">
+                                <Grid ColumnDefinitions="Auto,Auto">
+                                    <Label Text="€ "
+                                         FontSize="30" 
+                                         FontAttributes="Bold" 
+                                         HorizontalTextAlignment="Center" />
+                                    <Label Text="{Binding CurrentAmount}"
+                                           Grid.Column="1"
+                                            FontSize="30" 
+                                            FontAttributes="Bold" 
+                                            HorizontalTextAlignment="Center" />
+                                </Grid>
+                               
+                                
+                                <Label Text="Current balance" 
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="Gray" 
+                                       HorizontalTextAlignment="Center" />
+      
                             </VerticalStackLayout>
 
                             <carousel:SfCarousel ItemsSource="{Binding CardsList}" 
-                                             Grid.Row="2" 
-                                             EnableInteraction="True" 
-                                             ViewMode="Default" 
-                                             RotationAngle="0" 
-                                             SelectedItemOffset="125" 
-                                             EnableVirtualization="False"
-                                             SelectionChanged="SfCarousel_SelectionChanged"
-                                             SwipeMovementMode="SingleItem" 
-                                             ItemHeight="200" 
-                                             ItemWidth="310">
+                                                 Grid.Row="2" 
+                                                 EnableInteraction="True" 
+                                                 ViewMode="Default" 
+                                                 RotationAngle="0" 
+                                                 SelectedItemOffset="125" 
+                                                 EnableVirtualization="False"
+                                                 SelectedIndex="1"
+                                                 SelectionChanged="SfCarousel_SelectionChanged"
+                                                 SwipeMovementMode="SingleItem" 
+                                                 ItemHeight="200" 
+                                                 ItemWidth="310">
                                 <carousel:SfCarousel.ItemTemplate>
                                     <DataTemplate>
                                         <Border StrokeShape="RoundRectangle, 18">
                                             <Grid>
                                                 <Grid.Background>
                                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                                        <GradientStop Color="#4D475B" Offset="0.0" />
-                                                        <GradientStop Color="#3C3647" Offset="0.5" />
-                                                        <GradientStop Color="#312D3A" Offset="1.0" />
+                                                        <GradientStop Color="#414B59" Offset="0.0" />
+                                                        <GradientStop Color="#333B49" Offset="0.5" />
+
+                                                        <GradientStop Color="#222A38" Offset="1.0" />
                                                     </LinearGradientBrush>
                                                 </Grid.Background>
 
                                                 <Grid ColumnDefinitions="*,Auto">
                                                     <Label Text="P U L S E" 
-                                                         CharacterSpacing="2"
-                                                         AnchorX="0.4"
-                                                         FontSize="30"
-                                                         AnchorY="0.8"
-                                                         Rotation="-90"
-                                                         VerticalOptions="Center"
-                                                         HorizontalOptions="Start"
-                                                         />
+                                                             CharacterSpacing="2"
+                                                             TextColor="#5F6473"
+                                                             AnchorX="0.4"
+                                                             FontSize="30"
+                                                             AnchorY="0.8"
+                                                             Rotation="-90"
+                                                             VerticalOptions="Center"
+                                                             HorizontalOptions="Start"
+                                                             />
                                                     <Grid Grid.Column="1"
-                                                       RowDefinitions="*,60,70"
-                                                       Padding="10,10">
+                                                           RowDefinitions="*,80"
+                                                           Padding="0,20,24,20">
                                                         <Label Text="{Binding CardName}"
-                                                            HorizontalOptions="End"
-                                                            FontSize="Medium"/>
-                                                        <Image Source="cardchip.png" 
-                                                            Grid.Row="1"
-                                                            HorizontalOptions="End"
-                                                            VerticalOptions="Center"
-                                                            WidthRequest="40" 
-                                                            HeightRequest="40"/>
-                                                        <Label Text="VISA" 
-                                                            Grid.Row="2"
-                                                            HorizontalOptions="End"
-                                                            VerticalOptions="Center"
-                                                            FontAttributes="Italic" 
-                                                            FontSize="Medium"/>
+                                                                HorizontalOptions="End"
+                                                                TextColor="White"
+                                                                FontSize="Medium"/>
+                                                        <VerticalStackLayout Grid.Row="1" 
+                                                                             Spacing="14"
+                                                                             VerticalOptions="Center">
+                                                            <Image  Source="cardchip.png" 
+                                                                    HorizontalOptions="End"
+                                                                    VerticalOptions="Center"
+                                                                    WidthRequest="40" 
+                                                                    HeightRequest="40"/>
+                                                            <Label  Text="VISA" 
+                                                                    TextColor="White"
+                                                                    HorizontalOptions="End"
+                                                                    VerticalOptions="Center"
+                                                                    FontAttributes="Italic"
+                                                                    FontSize="Large"/>
+                                                        </VerticalStackLayout>
+
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
-
                                         </Border>
-
                                     </DataTemplate>
                                 </carousel:SfCarousel.ItemTemplate>
                             </carousel:SfCarousel>
-
+                            <Label x:Name="accountNumber"
+                                   Text="{Binding CardNumber}"
+                                   FontAttributes="Bold"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"/>
                             <!-- Action Buttons -->
                             <Grid ColumnDefinitions="*,*,*,*" HorizontalOptions="FillAndExpand">
-                                <VerticalStackLayout HorizontalOptions="Center" Grid.Column="0">
-                                    <buttons:SfButton Text="Top up" HeightRequest="50" WidthRequest="50" CornerRadius="25" />
-                                    <Label Text="Top up" HorizontalTextAlignment="Center" />
+                                <VerticalStackLayout HorizontalOptions="Center"
+                                                     Spacing="8"
+                                                     Grid.Column="0">
+                                    <buttons:SfButton Text="&#xe754;"
+                                                      FontFamily="MauiSampleFontIcon"
+                                                      Background="#1F2936"
+                                                      HeightRequest="50" 
+                                                      FontSize="24"
+                                                      WidthRequest="50" 
+                                                      CornerRadius="25" />
+                                    <Label Text="Top up"
+                                           FontAttributes="Bold"
+                                           HorizontalTextAlignment="Center" />
                                 </VerticalStackLayout>
-                                <VerticalStackLayout HorizontalOptions="Center" Grid.Column="1">
-                                    <buttons:SfButton Text="Exchange" HeightRequest="50" WidthRequest="50" CornerRadius="25" />
-                                    <Label Text="Exchange" HorizontalTextAlignment="Center" />
+                                <VerticalStackLayout HorizontalOptions="Center"
+                                                     Spacing="8"
+                                                     Grid.Column="1">
+                                    <buttons:SfButton Text="&#xe72b;"
+                                                      FontFamily="MauiSampleFontIcon"
+                                                      Background="#1F2936"
+                                                      FontSize="24"
+                                                      HeightRequest="50" 
+                                                      WidthRequest="50" 
+                                                      CornerRadius="25" />
+                                    <Label Text="Exchange" 
+                                           FontAttributes="Bold"
+                                           HorizontalTextAlignment="Center" />
                                 </VerticalStackLayout>
-                                <VerticalStackLayout HorizontalOptions="Center" Grid.Column="2">
-                                    <buttons:SfButton Text="Transfer" HeightRequest="50" WidthRequest="50" CornerRadius="25" Clicked="SfButton_Clicked" />
-                                    <Label Text="Transfer" HorizontalTextAlignment="Center" />
+                                <VerticalStackLayout HorizontalOptions="Center"
+                                                     Spacing="8"
+                                                     Grid.Column="2">
+                                    <buttons:SfButton Text="&#xe710;"
+                                                      FontSize="24"
+                                                      FontFamily="MauiSampleFontIcon"
+                                                      Background="#1F2936"
+                                                      HeightRequest="50" 
+                                                      WidthRequest="50" 
+                                                      CornerRadius="25" 
+                                                      Clicked="SfButton_Clicked"/>
+                                    <Label Text="Transfer" 
+                                           FontAttributes="Bold"
+                                           HorizontalTextAlignment="Center" />
                                 </VerticalStackLayout>
-                                <VerticalStackLayout HorizontalOptions="Center" Grid.Column="3">
-                                    <buttons:SfButton Text="Details" HeightRequest="50" WidthRequest="50" CornerRadius="25" />
-                                    <Label Text="Details" HorizontalTextAlignment="Center" />
+                                <VerticalStackLayout HorizontalOptions="Center" 
+                                                     Spacing="8"
+                                                     Grid.Column="3">
+                                    <buttons:SfButton Text="&#xe786;"
+                                                      FontFamily="MauiSampleFontIcon"
+                                                      Background="#1F2936"
+                                                      FontSize="24"
+                                                      HeightRequest="50" 
+                                                      WidthRequest="50" 
+                                                      CornerRadius="25" />
+                                    <Label Text="Details" 
+                                           FontAttributes="Bold"
+                                           HorizontalTextAlignment="Center" />
                                 </VerticalStackLayout>
                             </Grid>
-
+                            <BoxView HeightRequest="6" Color="#F3F2F3"/>
                             <!-- Transactions Section -->
-                            <VerticalStackLayout>
-                                <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,Auto">
-                                    <Label Text="Transactions" FontSize="18" FontAttributes="Bold" />
-                                    <Button Text="View all" Grid.Column="1" BackgroundColor="Transparent" TextColor="Blue" />
+                            <VerticalStackLayout Padding="10,0,10,10">
+                                
+                                <Grid ColumnDefinitions="*,Auto"
+                                      Padding="0,16">
+                                    <Label Text="Transactions"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="Start"
+                                           FontSize="18"
+                                           FontAttributes="Bold" />
+                                    <Label Text="View all" 
+                                            Grid.Column="1"
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="End"
+                                            BackgroundColor="Transparent"
+                                            FontAttributes="Bold"
+                                            TextColor="Black" />
                                 </Grid>
-                                <CollectionView ItemsSource="{Binding Transactions}" HeightRequest="100">
-                                    <CollectionView.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto">
-                                                <Image Source="{Binding UserImage}" WidthRequest="40" HeightRequest="40" />
-                                                <VerticalStackLayout Grid.Column="1">
-                                                    <Label Text="{Binding Title}" FontSize="16" />
-                                                    <Label Text="{Binding Date}" FontSize="12" TextColor="Gray" />
-                                                </VerticalStackLayout>
-                                                <Label Text="{Binding Amount}" Grid.Column="2" FontSize="16" HorizontalTextAlignment="End" />
-                                            </Grid>
-                                        </DataTemplate>
-                                    </CollectionView.ItemTemplate>
-                                </CollectionView>
+                                <Grid ColumnDefinitions="60,*,Auto"
+                                      
+                                      RowDefinitions="Auto">
+
+                                    <buttons:SfButton  WidthRequest="46"
+                                                       HeightRequest="46"
+                                                       Text="RL"
+                                                       FontSize="14"
+                                                       HorizontalOptions="Start"
+                                                       FontAttributes="Bold"
+                                                       TextColor="#2A2B2E"
+                                                       StrokeThickness="0"
+                                                       CornerRadius="23"
+                                                       Background="LightGray"
+                                                       Grid.Column="0" />
+                                    <VerticalStackLayout Grid.Column="1" Spacing="4">
+                                        <Label Text="Balance Top Up"
+                                               FontAttributes="Bold"
+                                               FontSize="16" />
+                                        <Label Text="1 Jun 2025" 
+                                               FontSize="14"
+                                               
+                                               TextColor="Gray" />
+                                    </VerticalStackLayout>
+                                    <Label Text="€ 800"
+                                           Grid.Column="2" 
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="End"
+                                           HorizontalTextAlignment="End"/>
+                                </Grid>
                             </VerticalStackLayout>
 
-                            <!-- Footer Navigation -->
-                            <Grid ColumnDefinitions="*,*,*,*,*" HorizontalOptions="FillAndExpand">
-                                <VerticalStackLayout HorizontalOptions="Center" Grid.Column="0">
-                                    <Image Source="home_icon.png" WidthRequest="50" HeightRequest="30" />
-                                    <Label Text="Home" HorizontalTextAlignment="Center" />
-                                </VerticalStackLayout>
-                                <VerticalStackLayout HorizontalOptions="Center" Grid.Column="1">
-                                    <Image Source="transactions_icon.png" WidthRequest="50" HeightRequest="30" />
-                                    <Label Text="Transactions" HorizontalTextAlignment="Center" />
-                                </VerticalStackLayout>
-                                <VerticalStackLayout HorizontalOptions="Center" Grid.Column="2">
-                                    <Image Source="reports_icon.png" WidthRequest="50" HeightRequest="30" />
-                                    <Label Text="Reports" HorizontalTextAlignment="Center" />
-                                </VerticalStackLayout>
-                                <VerticalStackLayout HorizontalOptions="Center" Grid.Column="3">
-                                    <Image Source="manage_icon.png" WidthRequest="50" HeightRequest="30" />
-                                    <Label Text="Manage" HorizontalTextAlignment="Center" />
-                                </VerticalStackLayout>
-                            </Grid>
+                            <BoxView HeightRequest="1" Color="#F3F2F3"/>
+
                         </VerticalStackLayout>
                     </tabView:SfTabItem.Content>
                 </tabView:SfTabItem>
 
-                <tabView:SfTabItem Header="Call">
+                <tabView:SfTabItem Header="Transactions" IsEnabled="False">
+                    <tabView:SfTabItem.ImageSource>
+                        <FontImageSource Glyph="&#xe720;"
+                      Size="20"
+                      Color="#414244"
+                      FontFamily="MauiMaterialAssets">
+
+                        </FontImageSource>
+                    </tabView:SfTabItem.ImageSource>
                     <tabView:SfTabItem.Content>
                         <Grid RowDefinitions="Auto" ColumnDefinitions="*,Auto,Auto">
                             <Label Text="Home" FontSize="24" FontAttributes="Bold" VerticalOptions="Center" />
@@ -170,7 +296,16 @@
                     </tabView:SfTabItem.Content>
                 </tabView:SfTabItem>
 
-                <tabView:SfTabItem Header="Call">
+                <tabView:SfTabItem Header="Report" IsEnabled="False">
+                    <tabView:SfTabItem.ImageSource>
+                        <FontImageSource Glyph="&#xe751;"
+                                        Size="20"
+                                        
+                                        Color="#414244"
+                                        FontFamily="MauiMaterialAssets">
+
+                        </FontImageSource>
+                    </tabView:SfTabItem.ImageSource>
                     <tabView:SfTabItem.Content>
                         <Grid RowDefinitions="Auto" ColumnDefinitions="*,Auto,Auto">
                             <Label Text="Home" FontSize="24" FontAttributes="Bold" VerticalOptions="Center" />
@@ -180,7 +315,15 @@
                     </tabView:SfTabItem.Content>
                 </tabView:SfTabItem>
 
-                <tabView:SfTabItem  Header="Call">
+                <tabView:SfTabItem  Header="Manage" IsEnabled="False">
+                    <tabView:SfTabItem.ImageSource>
+                        <FontImageSource Glyph="&#xe788;"
+                                        Size="20"
+                                        Color="#414244"
+                                        FontFamily="MauiSampleFontIcon">
+
+                        </FontImageSource>
+                    </tabView:SfTabItem.ImageSource>
                     <tabView:SfTabItem.Content>
                         <Grid RowDefinitions="Auto" ColumnDefinitions="*,Auto,Auto">
                             <Label Text="Home" FontSize="24" FontAttributes="Bold" VerticalOptions="Center" />
@@ -192,31 +335,38 @@
             </tabView:SfTabView.Items>
         </tabView:SfTabView>
 
-        <bottomSheet:SfBottomSheet x:Name="bottomSheet" CornerRadius="15, 15, 0, 0" HalfExpandedRatio="0.35" ContentPadding="10">
+        <bottomSheet:SfBottomSheet x:Name="bottomSheet" 
+                                   StateChanged="bottomSheet_StateChanged"
+                                   ZIndex="-1"
+                                   FullExpandedRatio="0.70"
+                                   CornerRadius="15, 15, 0, 0" 
+                                   HalfExpandedRatio="0.80" 
+                                   ContentPadding="10">
             <bottomSheet:SfBottomSheet.BottomSheetContent>
-                <VerticalStackLayout Padding="10">
+                <VerticalStackLayout Padding="10" Spacing="20">
                     <!-- Search Bar -->
                     <SearchBar Placeholder="Search contacts"
-               TextChanged="SearchBar_TextChanged"
-               x:Name="SearchBar" />
+                       TextChanged="SearchBar_TextChanged"
+                       Focused="SearchBar_Focused"
+                       x:Name="SearchBar" />
 
                     <!-- CollectionView -->
                     <CollectionView x:Name="ContactsCollectionView"
-    ItemsSource="{Binding FilteredContacts}">
+                                    ItemsSource="{Binding FilteredContacts}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <Grid Padding="10" ColumnDefinitions="Auto, *, Auto">
+                                <Grid Padding="10" ColumnDefinitions="Auto, *, Auto" ColumnSpacing="10">
                                     <!-- Avatar -->
-                                    <Frame BackgroundColor="LightGray"
-           CornerRadius="25"
-           WidthRequest="50"
-           HeightRequest="50"
-           VerticalOptions="Center">
+                                    <Border BackgroundColor="LightGray"
+                                           StrokeShape="RoundRectangle 25"
+                                           WidthRequest="50"
+                                           HeightRequest="50"
+                                           VerticalOptions="Center">
                                         <Label Text="{Binding Initials}"
-               HorizontalOptions="Center"
-               VerticalOptions="Center"
-               TextColor="White" />
-                                    </Frame>
+                                                HorizontalOptions="Center"
+                                                VerticalOptions="Center"
+                                                TextColor="#2A2B2E" />
+                                    </Border>
                                     <!-- Contact Details -->
                                     <VerticalStackLayout Grid.Column="1" Spacing="5">
                                         <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold" />
@@ -230,5 +380,7 @@
             </bottomSheet:SfBottomSheet.BottomSheetContent>
         </bottomSheet:SfBottomSheet>
     </Grid>
+          
+
 
 </ContentPage>
